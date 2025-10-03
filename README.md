@@ -80,6 +80,7 @@ endmodule
 
 # 4 bit Ripple counter using Function
 // 4-bit Ripple Counter using Function
+```
 module ripple_counter_func (
     input clk, rst,
     output reg [3:0] Q
@@ -96,11 +97,28 @@ module ripple_counter_func (
             Q <= count(Q);  // use function to increment
     end
 endmodule
+```
 
 # Test Bench
+```
+module ripplecountertb;
+reg clk_t, rst_t;
+wire [3:0] q_t;
 
+ripplecounter dut(.clk(clk_t), .rst(rst_t), .Q(q_t));
+
+initial begin
+    clk_t = 0;
+    rst_t = 1;
+    #10 rst_t = 0;
+end
+
+always #10 clk_t = ~clk_t;
+endmodule
+```
 
 # Output Waveform 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/83017847-88d1-47bb-8763-fa1d93a0ac07" />
 
 
 # Conclusion
