@@ -1,0 +1,17 @@
+module rippleadderusingtask_tb;
+    reg [3:0] A, B;
+    reg Cin;
+    wire [3:0] Sum;
+    wire Cout;
+
+    rippleadderusingtask uut(A, B, Cin, Sum, Cout);
+
+    initial begin
+        A = 4'b0000; B = 4'b0000; Cin = 0;
+        #10 A = 4'b0101; B = 4'b0011; Cin = 0;
+        #10 A = 4'b1111; B = 4'b0001; Cin = 0;
+        #10 A = 4'b1010; B = 4'b0101; Cin = 1;
+        #10 A = 4'b1100; B = 4'b1100; Cin = 1;
+        #10 $stop;
+    end
+endmodule
