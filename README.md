@@ -23,14 +23,15 @@ Capture screenshots of the waveform and save the simulation logs. These will be 
 
 # Verilog Code
 # 4 bit Ripple Adder using Task
-// 4-bit Ripple Carry Adder using Task
 ```
-module ripple_adder_task (
-    input [3:0] A, B,
-    input Cin,
+
+module rippleadderusingtask (
+    input  [3:0] A, B,
+    input  Cin,
     output reg [3:0] Sum,
     output reg Cout
 );
+
     reg c;
     integer i;
 
@@ -38,45 +39,48 @@ module ripple_adder_task (
         input a, b, cin;
         output s, cout;
         begin
-        ///
+            s = a ^ b ^ cin;
+            cout = (a & b) | (b & cin) | (a & cin);
         end
     endtask
 
-    always @(*) 
-    begin
+    always @(*) begin
         c = Cin;
         for (i = 0; i < 4; i = i + 1) begin
             full_adder(A[i], B[i], c, Sum[i], c);
         end
         Cout = c;
     end
+
 endmodule
+
 ```
 
 # Test Bench
 ```
-module ripplecarryadder_tb;
-reg [3:0] A,B;
-reg Cin;
-wire [3:0] Sum;
-wire Cout;
+module rippleadderusingtask_tb;
+    reg [3:0] A, B;
+    reg Cin;
+    wire [3:0] Sum;
+    wire Cout;
 
-ripplecarryadder uut(A,B,Cin,Sum,Cout);
+    rippleadderusingtask uut(A, B, Cin, Sum, Cout);
 
-initial begin
-A=4'b0000; B=4'b0000; Cin=0;
-#10 A=4'b0101; B=4'b0011; Cin=0;
-#10 A=4'b1111; B=4'b0001; Cin=0;
-#10 A=4'b1010; B=4'b0101; Cin=1;
-#10 A=4'b1100; B=4'b1100; Cin=1;
-#10 $stop;
-end
+    initial begin
+        A = 4'b0000; B = 4'b0000; Cin = 0;
+        #10 A = 4'b0101; B = 4'b0011; Cin = 0;
+        #10 A = 4'b1111; B = 4'b0001; Cin = 0;
+        #10 A = 4'b1010; B = 4'b0101; Cin = 1;
+        #10 A = 4'b1100; B = 4'b1100; Cin = 1;
+        #10 $stop;
+    end
 endmodule
+
 ```
 
 
 # Output Waveform
-<img width="1919" height="1079" alt="Screenshot 2025-10-03 160335" src="https://github.com/user-attachments/assets/38bba337-32c2-4859-a9ec-3a54aa44b28c" />
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/27dca5bb-2b88-45db-bb18-f8161a024d10" />
 
 # 4 bit Ripple counter using Function
 // 4-bit Ripple Counter using Function
