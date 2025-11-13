@@ -83,46 +83,55 @@ endmodule
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/27dca5bb-2b88-45db-bb18-f8161a024d10" />
 
 # 4 bit Ripple counter using Function
-// 4-bit Ripple Counter using Function
 ```
-module ripple_counter_func (
-    input clk, rst,
+
+module ripplecounterusingfunction (
+    input clk,
+    input rst,
     output reg [3:0] Q
 );
 
     function [3:0] count;
-     ///
+        input [3:0] x;
+        begin
+            count = x + 1;
+        end
     endfunction
 
     always @(posedge clk or posedge rst) begin
         if (rst)
             Q <= 4'b0000;
         else
-            Q <= count(Q);  // use function to increment
+            Q <= count(Q);
     end
+
 endmodule
+
 ```
 
 # Test Bench
 ```
-module ripplecountertb;
-reg clk_t, rst_t;
-wire [3:0] q_t;
+module ripplecounterusingfunction_tb;
+    reg clk_t, rst_t;
+    wire [3:0] q_t;
 
-ripplecounter dut(.clk(clk_t), .rst(rst_t), .Q(q_t));
+    ripplecounterusingfunction dut(.clk(clk_t), .rst(rst_t), .Q(q_t));
 
-initial begin
-    clk_t = 0;
-    rst_t = 1;
-    #10 rst_t = 0;
-end
+    initial begin
+        clk_t = 0;
+        rst_t = 1;
+        #5 rst_t = 0;
+    end
 
-always #10 clk_t = ~clk_t;
+    always #10 clk_t = ~clk_t;
+
 endmodule
+
 ```
 
 # Output Waveform 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/83017847-88d1-47bb-8763-fa1d93a0ac07" />
+<img width="1919" height="1078" alt="image" src="https://github.com/user-attachments/assets/ca8a01fe-e177-4713-8d21-2cbc2f98491c" />
+
 
 
 # Conclusion
